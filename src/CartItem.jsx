@@ -9,29 +9,41 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
- 
+    let totalAmount = 0;
+    cart.forEach(item => {
+      totalAmount += item.quantity * parseFloat(item.cost.replace('$', ''));
+    });
+    return totalAmount.toFixed(2); // Ensure the total is formatted to two decimal places
   };
-
+  const handleCheckoutShopping = (e) => {
+    alert('Functionality to be added for future reference');
+  };
   const handleContinueShopping = (e) => {
-   
-  };
-
-
-
+    onContinueShopping();};
   const handleIncrement = (item) => {
-  };
-
+    dispatch(updateQuantity({ name: item.name, quantity: item.quantity +1}));
+    console.log(totalItems); };
   const handleDecrement = (item) => {
-   
-  };
-
+    if(item.quantity > 1) {
+        dispatch(updateQuantity({ name: item.name, quantity: item.quantity -1}));
+  
+        console.log(totalItems);
+        }else {
+          dispatch(removeItem (item));
+  
+          console.log(totalItems);
+        }
+    };
   const handleRemove = (item) => {
-  };
+    dispatch(removeItem ({name: item.name}));// Use the item's unique ID to remove it
 
+    console.log(totalItems);
+  };
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    return parseFloat(item.cost.replace('$', '')) * item.quantity;
   };
-
+  
   return (
     <div className="cart-container">
       <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
@@ -55,7 +67,7 @@ const CartItem = ({ onContinueShopping }) => {
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
       <div className="continue_shopping_btn">
-        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
+        <button className="get-started-button" onClick={handleContinueShopping}>Continue Shopping</button>
         <br />
         <button className="get-started-button1">Checkout</button>
       </div>
