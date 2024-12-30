@@ -16,11 +16,11 @@ function ProductList() {
         useEffect(() => {
             setTotalQuantity(calculateTotalQuantity());
         }, [cartItems]);  
-        const handleAddToCart = (plant) => {
-            dispatch(addItem(plant));
+        const handleAddToCart = (product) => {
+            dispatch(addItem(product));
             setAddedToCart((prevState) => ({
                 ...prevState,
-                [plant.name]: true, // Set the product name as key and value as true to indicate it's added to cart
+                [product.name]: true,
             }));
         };
     const plantsArray = [
@@ -260,10 +260,9 @@ const handlePlantsClick = (e) => {
     setShowCart(false); // Hide the cart when navigating to About Us
 };
 
-    const handleContinueShopping = (e) => {
+   const handleContinueShopping = (e) => {
     e.preventDefault();
     setShowCart(false);
-    setAddedToCart({});};
   };
     return (
         <div>
@@ -308,8 +307,7 @@ const handlePlantsClick = (e) => {
                         <div className="product-title">{plant.name}</div>
                         <div className="product-description">{plant.description}</div>
                         <div className="product-cost">{plant.cost}</div>
-                        <button
-                className={`product-button ${addedToCart[plant.name] ? 'added-to-cart' : ''}`onClick={() => handleAddToCart(plant)} disabled={addedToCart[plant.name]}>{addedToCart[plant.name] ? "Added to Cart" : "Add to "</button>
+                        <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
                         </div>
                     ))}
                     </div>
