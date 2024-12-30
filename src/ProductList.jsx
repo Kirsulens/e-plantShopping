@@ -6,14 +6,13 @@ import {addItem} from './CartSlice';
 function ProductList() {
     const [showCart, setShowCart] = useState(false); 
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-    const ProductList = () => {
         const dispatch = useDispatch();
         const [addedToCart, setAddedToCart] = useState({});    
-    const handleAddToCart = (product) => {
-        dispatch(addItem(product));
+    const handleAddToCart = (plant) => {
+        dispatch(addItem(plant));
         setAddedToCart((prevState) => ({
            ...prevState,
-           [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
+           [plant.name]: true, // Set the product name as key and value as true to indicate it's added to cart
          }));
       };
     const plantsArray = [
@@ -288,7 +287,7 @@ const handlePlantsClick = (e) => {
                         <div className="product-title">{plant.name}</div>
                         <div className="product-description">{plant.description}</div>
                         <div className="product-cost">{plant.cost}</div>
-                        <button className="product-button">Add to Cart</button>
+                        <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
                         </div>
                     ))}
                     </div>
@@ -300,6 +299,5 @@ const handlePlantsClick = (e) => {
 )}
         </div>
     );
-}
 }
 export default ProductList;
